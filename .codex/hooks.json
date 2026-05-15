@@ -1,0 +1,35 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "when": {
+          "platform": [
+            "darwin",
+            "linux"
+          ]
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.codex/hooks/log-prompt.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "when": {
+          "platform": [
+            "win32"
+          ]
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 .\\.codex\\hooks\\log_prompt.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
