@@ -4,3 +4,6 @@
 ### 17-05-2026 14:56
 - **Prompt**: Could you recommend me a python library for extracting text from PDFs, markdowns and source code files? I need it to create embeddings
 
+### 17-05-2026 17:50
+- **Prompt**: the current requirements.txt file seems to have a lot of errors and mismatched names, please look through them and point out and correct the incorrect ones
+
