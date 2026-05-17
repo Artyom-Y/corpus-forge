@@ -31,5 +31,18 @@
 
 ### **New Interaction**
 - **Hook Version**: 1.02
+- **Date**: 17-05-2026 18:45
+- **Prompt**: User reported `en-core-web-sm` is an incorrect name.
+- **Action taken**: Removed the `en-core-web-sm==3.8.0` pip entry from `requirements.corrected.txt` and added a comment instructing to install the spaCy model via `python -m spacy download en_core_web_sm`. This avoids pinning spaCy language models in `requirements.txt` and uses the official installer method.
+- **Files changed**: updated `requirements.corrected.txt`.
+- **Next steps**: If you prefer, I can (a) add an install helper script to fetch models, (b) pin a PyPI-distributed model package if you want strict reproducibility, or (c) replace `requirements.txt` with the corrected file.
+
+### **New Interaction**
+- **Hook Version**: 1.02
 - **Date**: 17-05-2026 17:53
 - **Prompt**: en-core-web-sm this is an incorrect name
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 17-05-2026 17:54
+- **Prompt**: i want to run this in a venv though, how will i be able to go about that

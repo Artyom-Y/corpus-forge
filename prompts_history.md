@@ -10,3 +10,6 @@
 ### 17-05-2026 17:53
 - **Prompt**: en-core-web-sm this is an incorrect name
 
+### 17-05-2026 17:54
+- **Prompt**: i want to run this in a venv though, how will i be able to go about that
+
