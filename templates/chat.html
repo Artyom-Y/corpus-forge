@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corpus Forge Chat</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='chat_style.css') }}"
+    />
 </head>
 <body>
-    <main>
+    <ul>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="">Reset</a></li>
+    </ul>
+    
+    <main id="main_container">
         <div id="files_sidebar">
-
+            <h1>test1</h1>
         </div>
-        
-        <div id="chat_window">
             
+        <div id="chat_window">
+            <h1>test2</h1>
         </div>
         
         <div id="tools_sidebar">
-            
+            <h1>test3</h1>
         </div>
     </main>
 </body>
