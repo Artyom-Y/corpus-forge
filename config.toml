@@ -1,0 +1,3 @@
+[model_parameters]
+name = "gemini-2.5-flash-lite"
+# think of other parameters to put here like temperature, top k, etc
