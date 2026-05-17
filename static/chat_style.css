@@ -29,15 +29,19 @@ ul li a:hover {
 }
 
 #files_sidebar {
+    padding: 10px;
     height: 90vh;
     flex: 1;
 }
 
 #chat_window {
+    padding: 10px;
     height: 90vh;
     flex: 2;
     display: flex;
     flex-direction: column;
+    border-left: 4px solid #915e42a7;
+    border-right: 4px solid #915e42a7;
 }
 
 #dialogue {
@@ -45,6 +49,7 @@ ul li a:hover {
 }
 
 #tools_sidebar {
+    padding: 10px;
     height: 90vh;
     flex: 1;
 }
