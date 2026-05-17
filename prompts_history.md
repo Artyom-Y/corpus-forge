@@ -7,3 +7,6 @@
 ### 17-05-2026 17:50
 - **Prompt**: the current requirements.txt file seems to have a lot of errors and mismatched names, please look through them and point out and correct the incorrect ones
 
+### 17-05-2026 17:53
+- **Prompt**: en-core-web-sm this is an incorrect name
+
