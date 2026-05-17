@@ -13,3 +13,6 @@
 ### 17-05-2026 17:54
 - **Prompt**: i want to run this in a venv though, how will i be able to go about that
 
+### 17-05-2026 17:59
+- **Prompt**: spacy fails to install
+

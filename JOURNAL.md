@@ -46,3 +46,8 @@
 - **Hook Version**: 1.02
 - **Date**: 17-05-2026 17:54
 - **Prompt**: i want to run this in a venv though, how will i be able to go about that
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 17-05-2026 17:59
+- **Prompt**: spacy fails to install
