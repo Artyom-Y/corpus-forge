@@ -3,6 +3,8 @@ from dotenv import load_dotenv, find_dotenv, set_key
 from unstructured.partition.auto import partition
 from unstructured.chunking.title import chunk_by_title
 from unstructured.cleaners.core import clean
+import chromadb
+from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 # .env file interaction
 def create_env_if_not_exists():
@@ -22,7 +24,6 @@ def set_google_key(value: str):
 # working with embeddings
 content_types = {".pdf": "application/pdf", ".md": "text/markdown"}
 
-
 def parse_file(file: str) -> list[str]:
     path = os.path.join("storage\input", file)
     if not os.path.exists(path):
@@ -36,6 +37,10 @@ def parse_file(file: str) -> list[str]:
     chunks = chunk_by_title(elements, max_characters=150)
     return [clean(str(chunk), extra_whitespace=True) for chunk in chunks]
 
-# chunks = parse_file("sample.pdf")
-# for chunk in chunks:
-#     print(chunk)
+def add_to_collection(chunks, name):
+    client = chromadb.PersistentClient(path="storage")
+    collection = client.get_or_create_collection(name=name, embedding_function=SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2"))
+    collection.add(
+        documents=chunks,
+        ids=[f"id{i}" for i in range(len(chunks))]
+    )
