@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+import requests
 from utilities import read_history, add_to_history
 
 app = Flask(__name__)
@@ -15,6 +16,11 @@ def get_messages():
 def post_message():
     msg = request.json
     add_to_history(msg)
+
+    #call ai here
+    #add_to_history with ai's response
+
+    return jsonify({"status":"ok"})
 
 
 
