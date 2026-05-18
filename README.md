@@ -12,3 +12,5 @@ storage - has two subfolders for storing user input (RAG context) and AI's outpu
 
 config.toml - model configuration file (published to github)
 .env - contains an API key (not published)
+
+Python version - 3.14.5
