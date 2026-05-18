@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request
-import requests
 from utilities import read_history, add_to_history
 
 app = Flask(__name__)

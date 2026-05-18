@@ -1,3 +1,14 @@
 [model_parameters]
 name = "gemini-2.5-flash-lite"
-# think of other parameters to put here like temperature, top k, etc
+system_instruction = ""
+temperature = "default"
+topk = "default"
+topp = "default"
+
+[tools]
+google_search = False
+google_maps = False
+url_context = False
+
+#things like temperature, topK and topP vary by model. how should we handle that?
+#maybe check if value specified here is legit, if not, just revert to default
