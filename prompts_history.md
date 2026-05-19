@@ -10,3 +10,6 @@
 ### 18-05-2026 21:14
 - **Prompt**: i like your suggestion, but first i need to understand how will that work (i need to write google gemini API functions to work with this setup). please explain step by step how are the functions related (less emphasis on helper functions, more on polling and what does "messages" page do). also, could we use document.getElementById("demo").innerHTML = <something inside fetchMessages to update our chatbox?
 
+### 19-05-2026 11:52
+- **Prompt**: i want to use client.chats.create() with history parameter when initializing chat session, so that AI is aware about our previous conversation. what is the input format for history parameter? i should initialize chat with history and then just save new messages (from user and AI) to the json file, right?
+
