@@ -5,9 +5,7 @@
 [model_parameters]
 name = "gemini-2.5-flash-lite"
 system_instruction = ""
-temperature = "default"
-topk = "default"
-topp = "default"
+temperature = 1.0
 
 [tools]
 google_search = False
