@@ -50,16 +50,21 @@ def add_to_collection(chunks, name):
         ids=[f"id{i}" for i in range(len(chunks))]
     )
 
+
+#saving conversation history
 def read_history(path="storage/history.json"):
+    '''Read history JSON file via json.load()'''
     if not os.path.exists(path):
         return []
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
     
-def add_to_history(msg, path="storage/history.json"):
+def add_to_history(text, role, path="storage/history.json"):
+    '''Add role and text to history JSON file in format 
+    appropriate for gemini API'''
     lock = FileLock(path + ".lock")
     with lock:
         cur_history = read_history(path)
-        cur_history.append(msg)
+        cur_history.append({"role": role, "parts": [text]})
         with open(path, "w", encoding="utf-8") as f:
             json.dump(cur_history, f, ensure_ascii=False, indent=3) # indent is purely cosmetic
