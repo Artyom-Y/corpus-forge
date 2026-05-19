@@ -85,11 +85,18 @@ def list_collection_names():
     client = chromadb.PersistentClient(path="storage")
     return [collection.name for collection in client.list_collections()]
 
+def get_context(query, collection_name, n_results=3):
+    '''Retrieve context based on one collection'''
+    client = chromadb.PersistentClient(path="storage")
+    collection = client.get_collection(collection_name)
+    results = collection.query(query_texts=[query], n_results=n_results)
+    return "\n".join(results['documents'][0])
+
 
 #saving conversation history
 def read_history(path="storage/history.json"):
     '''Read history JSON file via json.load()'''
-    if not os.path.exists(path):
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
         return []
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -104,4 +111,5 @@ def add_to_history(text, role, path="storage/history.json"):
         with open(path, "w", encoding="utf-8") as f:
             json.dump(cur_history, f, ensure_ascii=False, indent=3) # indent is purely cosmetic
 
-update_config(name="test")
+def empty_history():
+    open('storage/history.json', 'w').close()

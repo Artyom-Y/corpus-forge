@@ -27,6 +27,7 @@ def get_chat():
     tools = [tool for name, tool in all_tools.items() if config["tools"][name]]
     model_info = client.models.get(model=model)
     config_dict = {}
+
     if len(system_instruction) > 0:
         config_dict["system_instruction"] = system_instruction
     if tools:
@@ -34,4 +35,25 @@ def get_chat():
     if temperature in [0.0, model_info.max_temperature]:
         config_dict["temperature"] = temperature
     chat_config = types.GenerateContentConfig(**config_dict)
+    
     return client.chats.create(model=model, history=history, config=chat_config)
+
+
+def send_message():
+    pass
+
+def token_count(chat):
+    client = genai.Client(api_key=get_google_key())
+    client.models.count_tokens()
+    chat = get_chat()
+    return client.models.count_tokens(model=model, contents=chat.get_history())
+
+def prompts_count():
+    count = 0
+    history = read_history()
+
+    for msg in history:
+        if msg["role"] == "user":
+            count += 1
+
+    return count
