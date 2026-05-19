@@ -4,6 +4,17 @@
 ### 17-05-2026 14:56
 - **Prompt**: Could you recommend me a python library for extracting text from PDFs, markdowns and source code files? I need it to create embeddings
 
+### 17-05-2026 17:50
+- **Prompt**: the current requirements.txt file seems to have a lot of errors and mismatched names, please look through them and point out and correct the incorrect ones
+
+### 17-05-2026 17:53
+- **Prompt**: en-core-web-sm this is an incorrect name
+
+### 17-05-2026 17:54
+- **Prompt**: i want to run this in a venv though, how will i be able to go about that
+
+### 17-05-2026 17:59
+- **Prompt**: spacy fails to install
 ### 18-05-2026 20:47
 - **Prompt**: earlier i asked about methods of making the page update with AI's response. now i want to add a question on top: what are our options for saving the chat history? does google gemini api have a solution for that? JSON could work. we update the JSON file with AI's response and then update the webpage with new JSON. But that would mean we have to pass a larger file each time. maybe there are alternatives I'm not aware of like some python library? also the solution should work well with the web page updating. optimization isn't the biggest concern, we need something that's both understandable for a first year and quick to implement
 

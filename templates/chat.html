@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corpus Forge Chat</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/chat_style.css')}}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_style.css') }}"/>
 </head>
 <body>
-    <ul>
-        <li><a href="settings.html">Settings</a></li>
+    <ul class="dashboard">
+        <li><a href="{{url_for('settings')}}">
+            <img id="ico_setting" src="{{ url_for('static', filename='images/setting.png')}}" alt= 'Settings'>
+        </a></li>
         <li><a href="">Reset</a></li>
     </ul>
 
@@ -42,4 +41,7 @@
         </div>
     </main>
 </body>
+<footer>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</footer>
 </html>

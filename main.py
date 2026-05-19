@@ -25,6 +25,10 @@ def post_message():
     return jsonify({"status":"ok"})
 
 
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
 
 #remove on production
 if __name__ == "__main__":
