@@ -4,10 +4,11 @@
 from google import genai
 from google.genai import types
 from utilities import get_google_key, read_history
-import tomllib
+import toml
 
-with open("config.toml", "rb") as f:
-    config = tomllib.load(f)
+with open("config.toml", "r") as f:
+    config = toml.load(f)
+
 
 model = config["model_parameters"]["name"]
 system_instruction = config["model_parameters"]["system_instruction"]

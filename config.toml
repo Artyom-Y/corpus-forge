@@ -1,7 +1,3 @@
-#things like temperature, topK and topP vary by model.
-#if the value specified here isn't legit, the app reverts to default.
-#the updates apply at the restart
-
 [model_parameters]
 name = "gemini-2.5-flash-lite"
 system_instruction = ""
