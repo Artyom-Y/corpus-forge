@@ -90,7 +90,7 @@ def get_context(query, collection_name, n_results=3):
     client = chromadb.PersistentClient(path="storage")
     collection = client.get_collection(collection_name)
     results = collection.query(query_texts=[query], n_results=n_results)
-    return "\n".join(results['documents'][0])
+    return "\n".join(results['documents'][0]) + "\n"
 
 
 #saving conversation history

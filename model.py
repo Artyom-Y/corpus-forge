@@ -3,7 +3,7 @@
 
 from google import genai
 from google.genai import types
-from utilities import get_google_key, read_history
+from utilities import get_google_key, read_history, get_context
 import toml
 
 with open("config.toml", "r") as f:
@@ -39,8 +39,17 @@ def get_chat():
     return client.chats.create(model=model, history=history, config=chat_config)
 
 
-def send_message():
-    pass
+def send_message(prompt: str, collections_names: list[str]):
+    if collections_names:
+        context = "Context: \n"
+        for collections_name in collections_names:
+            context += get_context(prompt, collections_name)
+    
+    prompt = prompt + "/n" + context
+
+    chat = get_chat()
+    response = chat.send_message(prompt)
+    return response
 
 def token_count(chat):
     client = genai.Client(api_key=get_google_key())
