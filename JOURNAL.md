@@ -51,3 +51,15 @@
 - **Hook Version**: 1.02
 - **Date**: 17-05-2026 17:59
 - **Prompt**: spacy fails to install
+- **Date**: 18-05-2026 20:47
+- **Prompt**: earlier i asked about methods of making the page update with AI's response. now i want to add a question on top: what are our options for saving the chat history? does google gemini api have a solution for that? JSON could work. we update the JSON file with AI's response and then update the webpage with new JSON. But that would mean we have to pass a larger file each time. maybe there are alternatives I'm not aware of like some python library? also the solution should work well with the web page updating. optimization isn't the biggest concern, we need something that's both understandable for a first year and quick to implement
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 18-05-2026 21:14
+- **Prompt**: i like your suggestion, but first i need to understand how will that work (i need to write google gemini API functions to work with this setup). please explain step by step how are the functions related (less emphasis on helper functions, more on polling and what does "messages" page do). also, could we use document.getElementById("demo").innerHTML = <something inside fetchMessages to update our chatbox?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 19-05-2026 11:52
+- **Prompt**: i want to use client.chats.create() with history parameter when initializing chat session, so that AI is aware about our previous conversation. what is the input format for history parameter? i should initialize chat with history and then just save new messages (from user and AI) to the json file, right?
