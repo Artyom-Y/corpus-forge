@@ -6,6 +6,10 @@ app = Flask(__name__)
 def chat():
     return render_template("chat.html")
 
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
 
 #remove on production
 if __name__ == "__main__":
