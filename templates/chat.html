@@ -10,11 +10,7 @@
     />
 </head>
 <body>
-    <ul>
-        <li><a href="settings.html">Settings</a></li>
-        <li><a href="">Reset</a></li>
-    </ul>
-
+    {% include "menu.html" %}
     <main id="main_container">
         <div id="files_sidebar">
             <h2>Files</h2>
@@ -27,10 +23,14 @@
             <h2>Chat</h2>
             <p>Send messages, view history</p>
             <div id="dialogue">
-                <!-- TODO: Iterate over history using jinja and display the conversation -->
+                <!-- TODO: get history by polling /dialogue and render it here (via JS) -->
             </div>
             <div id="send_message">
                 <!-- TODO: message form and submit button. Can't send when the model is thinking -->
+                 <form method="post" id="send_message_form">
+                    <textarea placeholder="Enter your prompt..." id="text_field"></textarea>
+                    <input type="submit" value="Send!" id="submit_button">
+                 </form>
             </div>
         </div>
         
@@ -38,7 +38,7 @@
             <h2>Tools</h2>
             <hr>
             <p>Generate quizzes and flashcards</p>
-            <!-- TODO: add action buttons (e.g. for quiz, flashcards...) and a list of generated content which you can open -->
+            <!-- TODO: add action buttons (e.g. for quiz, flashcards...) and a list of generated content which you can open (links to open html files in the output folder) -->
         </div>
     </main>
 </body>

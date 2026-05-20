@@ -24,6 +24,11 @@ def set_google_key(value: str):
     set_key(path, "GOOGLE_API_KEY", value)
 
 # toml file interaction
+def get_config():
+    with open('config.toml', 'r') as f:
+        config = toml.load(f)
+    return config
+
 def update_config(name=None, system_instruction=None, temperature=None, google_search=None, google_maps=None, url_context=None):
     new_config = {
     'model_parameters': {'name': name, 'system_instruction': system_instruction, 'temperature': temperature}, 
