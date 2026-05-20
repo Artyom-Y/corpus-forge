@@ -6,7 +6,7 @@ from utilities import (
     get_config,
     update_config,
 )
-from class_model import AIModel
+from model import AIModel
 
 app = Flask(__name__)
 
@@ -49,8 +49,8 @@ def post_message():
 
     if not user_prompt:
         return jsonify({"error": "Prompt is required"}), 400
-
-    add_to_history(data, "user")
+    
+    add_to_history(user_prompt, "user")
 
     # TODO: call ai here (the post request should contain name files to include in context)
     # add_to_history with ai's response
@@ -58,8 +58,7 @@ def post_message():
     # if something goes wrong, suggest to check if api key is correct
     try:
         ai_text = gemini.generate_response(user_prompt, collections)
-        ai_msg = {"role": "model", "parts": [{"text": ai_text}]}
-        add_to_history(ai_msg, "model")
+        add_to_history(ai_text, "model")
 
         return jsonify({"reply": ai_text})
     

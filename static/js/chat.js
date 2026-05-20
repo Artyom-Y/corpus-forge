@@ -10,7 +10,7 @@ function appendMessage( message, sender) {
     messageDiv.textContent = message;
 
     chatDisplay.appendChild(messageDiv);
-    chatDisplay.scrollTop = chatBox.scrollHeight;
+    chatDisplay.scrollTop = chatForm.scrollHeight;
 }
 
 async function handleSendMessage(event) {

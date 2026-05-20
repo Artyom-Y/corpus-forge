@@ -14,8 +14,8 @@ def create_env_if_not_exists():
         with open(".env", 'w') as file:
             file.write("GOOGLE_API_KEY=''")
 
-def get_google_key() -> str:
-    load_dotenv()
+def get_google_key() -> str | None:
+    load_dotenv('.env')
     return os.getenv("GOOGLE_API_KEY")
 
 def set_google_key(value: str):
@@ -112,7 +112,7 @@ def add_to_history(text, role, path="storage/history.json"):
     lock = FileLock(path + ".lock")
     with lock:
         cur_history = read_history(path)
-        cur_history.append({"role": role, "parts": [text]})
+        cur_history.append({"role": role, "parts": [{"text": text}]})
         with open(path, "w", encoding="utf-8") as f:
             json.dump(cur_history, f, ensure_ascii=False, indent=3) # indent is purely cosmetic
 
