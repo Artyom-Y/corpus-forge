@@ -46,7 +46,30 @@ ul li a:hover {
 
 #dialogue {
     overflow: auto;
+    flex: 6;
 }
+
+#send_message {
+    flex: 1;
+    display: flex;
+    align-content: stretch;
+}
+
+#send_message_form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#text_field {
+    flex: 6;
+    resize: none;
+}
+
+#submit_button {
+    flex: 1;
+}
+
 
 #tools_sidebar {
     padding: 10px;
