@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corpus Forge Chat</title>
+    <title>Settings</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chat_style.css')}}"
+    />
 </head>
 <body>
-    <h1>Corpus Forge Chat</h1>
+    <!-- Configure config.toml, .env and monitor AI usage -->
+    <!-- TODO: simple form using POST method which let's user configure config.toml and .env (google api key) -->
+     {% include "menu.html" %}
 </body>
 </html>
