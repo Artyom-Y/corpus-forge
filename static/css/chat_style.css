@@ -55,18 +55,18 @@ ul li a:hover {
     align-content: stretch;
 }
 
-#send_message_form {
+#chat-box {
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-#text_field {
+#input-box {
     flex: 6;
     resize: none;
 }
 
-#submit_button {
+#send-btn {
     flex: 1;
 }
 

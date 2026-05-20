@@ -45,7 +45,7 @@ def send_message(prompt: str, collections_names: list[str]):
         for collections_name in collections_names:
             context += get_context(prompt, collections_name)
     
-    prompt = prompt + "/n" + context
+    prompt = prompt + "\n" + context
 
     chat = get_chat()
     response = chat.send_message(prompt)
@@ -53,7 +53,7 @@ def send_message(prompt: str, collections_names: list[str]):
 
 def token_count(chat):
     client = genai.Client(api_key=get_google_key())
-    client.models.count_tokens()
+    # client.models.count_tokens()
     chat = get_chat()
     return client.models.count_tokens(model=model, contents=chat.get_history())
 

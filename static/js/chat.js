@@ -1,6 +1,7 @@
-const chatBox = document.getElementById("chat-box");
-const inputBox = document.getElementById("input-box");
-const sendButton = document.getElementById("send-btn");
+const chatDisplay = document.getElementById("dialogue");
+const chatInput = document.getElementById("input-box");
+const chatForm = document.getElementById("chat-box");
+const sendBtn = document.getElementById("send-btn");
 
 function appendMessage( message, sender) {
     const messageDiv = document.createElement('div');
@@ -8,47 +9,57 @@ function appendMessage( message, sender) {
     messageDiv.classList.add('message', `${sender}-msg`);
     messageDiv.textContent = message;
 
-    chatBox.appendChild(messageDiv);
-
-    chatBox.scrollTop = chatBox.scrollHeight;
+    chatDisplay.appendChild(messageDiv);
+    chatDisplay.scrollTop = chatBox.scrollHeight;
 }
 
-async function handleSendMessage() {
-    const userText = inputBox.value.trim();
+async function handleSendMessage(event) {
+    event.preventDefault();
+
+    const userText = chatInput.value.trim();
     if (userText === '') return;
 
     appendMessage(userText, 'user');
-    inputBox.value = '';
+    chatInput.value = '';
 
-    inputBox.disabled = true;
-    sendButton.disabled = true;
+    chatInput.disabled = true;
+    sendBtn.disabled = true;
 
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('/dialogue', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({message: userText})
+            body: JSON.stringify({prompt: userText, collections_names: []})
         });
 
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
         const data = await response.json();
-        appendMessage(data.reply, 'ai');
+        
+        if (data.error) {
+            appendMessage(data.error, 'error');
+        } else {
+            appendMessage(data.response, 'ai');
+        }
+
     } catch (error) {
         console.error("Error communicating with AI:", error);
         appendMessage("Sorry, I'm having trouble connecting right now.", 'error');
     } finally {
-        inputBox.disabled = false;
-        sendButton.disabled = false;
+        chatInput.disabled = false;
+        sendBtn.disabled = false;
 
-        inputBox.focus();
+        chatInput.focus();
     }
 }
 
-sendButton.addEventListener('click', handleSendMessage);
+chatForm.addEventListener('submit', handleSendMessage);
 
-inputBox.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        handleSendMessage();
+chatInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        handleSendMessage(event);
     }
 });
