@@ -24,3 +24,6 @@
 ### 19-05-2026 11:52
 - **Prompt**: i want to use client.chats.create() with history parameter when initializing chat session, so that AI is aware about our previous conversation. what is the input format for history parameter? i should initialize chat with history and then just save new messages (from user and AI) to the json file, right?
 
+### 21-05-2026 17:41
+- **Prompt**: I am trying to parse markdown from the AI to be displayed properly in the js, is there a way I can use the md tag or do i have to use external js libraries
+
