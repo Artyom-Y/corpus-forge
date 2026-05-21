@@ -42,3 +42,6 @@
 ### 21-05-2026 17:55
 - **Prompt**: but render message is a function in j
 
+### 21-05-2026 17:57
+- **Prompt**: so wont I recieve a console error, rendermessage undefined
+
