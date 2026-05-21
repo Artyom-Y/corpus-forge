@@ -39,3 +39,6 @@
 ### 21-05-2026 17:52
 - **Prompt**: display the python side implementations, cause I do not understand how a function called in js will be run in main.py
 
+### 21-05-2026 17:55
+- **Prompt**: but render message is a function in j
+
