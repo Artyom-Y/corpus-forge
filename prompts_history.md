@@ -27,3 +27,6 @@
 ### 21-05-2026 17:41
 - **Prompt**: I am trying to parse markdown from the AI to be displayed properly in the js, is there a way I can use the md tag or do i have to use external js libraries
 
+### 21-05-2026 17:45
+- **Prompt**: in this, do i have to change the created element to a md tag and switch from textcontent to innerHTML?
+
