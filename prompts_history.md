@@ -33,3 +33,6 @@
 ### 21-05-2026 17:47
 - **Prompt**: so im thinking of using innerhtml how to go about it?
 
+### 21-05-2026 17:50
+- **Prompt**: I have to import these external libraries right, are they installable via pip cause npm is all I can see online and our project doesnt use node
+
