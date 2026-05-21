@@ -35,10 +35,9 @@ def settings():
     # TODO: pass the config and parse it using jinja
     return render_template("settings.html")
 
-@app.get("/dialogue")
+@app.get("/history")
 def get_messages():
     return jsonify(read_history())
-
 
 @app.post("/dialogue")
 def post_message():

@@ -113,3 +113,14 @@
 - **Hook Version**: 1.02
 - **Date**: 21-05-2026 18:16
 - **Prompt**: update journal log
+
+### **New Interaction**
+- **Agent Version**: 2.3
+- **Date**: 21-05-2026 18:16
+- **User**: Artyom-Y
+- **Prompt**: update journal log
+- **CoPilot Mode**: Edit
+- **CoPilot Model**: GPT-5 mini
+- **Socratic Mode**: ON
+- **Changes Made**: Appended a journal entry recording the user's request to update the journal and the recent discussion about rendering AI markdown in the web UI (client-side vs server-side parsing, need for a markdown parser, and sanitization before using `innerHTML`).
+- **Context and Reasons for Changes**: Maintain chronological project log per repository policy; capture decision points and recommendations about markdown rendering and security (use markdown parser + DOMPurify or render server-side with `markdown-it-py`).

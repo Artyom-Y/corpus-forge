@@ -17,7 +17,30 @@ function appendMessage( message, sender) {
     }
 
     chatDisplay.appendChild(messageDiv);
-    chatDisplay.scrollTop = chatForm.scrollHeight;
+    chatDisplay.scrollTop = chatDisplay.scrollHeight;
+}
+
+async function loadHistory() {
+    try {
+        const response = await fetch('/history');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const historyData = await response.json();
+
+        historyData.forEach(msg => {
+            if (msg.role && msg.parts && msg.parts.length > 0) {
+                const sender = msg.role === 'model' ? 'ai' : 'user';
+                const text = msg.parts[0].text;
+
+                appendMessage(text, sender);
+            }
+        });
+    } catch (error) {
+        console.error("Error loading history:", error);
+    }
 }
 
 async function handleSendMessage(event) {
@@ -63,6 +86,7 @@ async function handleSendMessage(event) {
 }
 
 chatForm.addEventListener('submit', handleSendMessage);
+sendBtn.addEventListener('click', handleSendMessage);
 
 chatInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
@@ -70,3 +94,5 @@ chatInput.addEventListener('keydown', (event) => {
         handleSendMessage(event);
     }
 });
+
+window.addEventListener('DOMContentLoaded', loadHistory);

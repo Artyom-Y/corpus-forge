@@ -44,11 +44,6 @@ ul li a:hover {
     border-right: 4px solid #915e42a7;
 }
 
-#dialogue {
-    overflow: auto;
-    flex: 6;
-}
-
 #send_message {
     flex: 1;
     display: flex;
@@ -90,6 +85,7 @@ ul li a:hover {
 
 #dialogue {
     display: flex;
+    flex: 6;
     flex-direction: column;
     gap: 15px;
     padding: 20px;
