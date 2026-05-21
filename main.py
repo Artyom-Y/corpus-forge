@@ -4,6 +4,7 @@ from utilities import (
     add_to_history,
     create_env_if_not_exists,
     get_config,
+    parse_file,
     update_config,
 )
 from model import AIModel

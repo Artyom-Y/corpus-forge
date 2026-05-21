@@ -7,7 +7,14 @@ function appendMessage( message, sender) {
     const messageDiv = document.createElement('div');
     // Add classes to the messages and shi
     messageDiv.classList.add('message', `${sender}-msg`);
-    messageDiv.textContent = message;
+
+    if (sender === 'ai') {
+        const rawhtml = marked.parse(message)
+        const cleanhtml = DOMPurify.sanitize(rawhtml);
+        messageDiv.innerHTML = cleanhtml;
+    } else {
+        messageDiv.textContent = message;
+    }
 
     chatDisplay.appendChild(messageDiv);
     chatDisplay.scrollTop = chatForm.scrollHeight;

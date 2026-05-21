@@ -1,6 +1,6 @@
 from google import genai
 from google.genai import types
-from utilities import get_google_key, read_history, get_context
+from utilities import get_google_key, read_history, get_context, parse_file
 import toml
 
 class AIModel:
