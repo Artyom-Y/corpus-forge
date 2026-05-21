@@ -37,11 +37,13 @@ async function handleSendMessage(event) {
         }
 
         const data = await response.json();
+
+        console.log("RECEIVED FROM PYTHON:", data);
         
         if (data.error) {
             appendMessage(data.error, 'error');
         } else {
-            appendMessage(data.response, 'ai');
+            appendMessage(data.reply, 'ai');
         }
 
     } catch (error) {

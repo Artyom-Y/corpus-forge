@@ -55,7 +55,7 @@ class AIModel:
 
     def token_count(self):
         chat = self.get_chat()
-        return self.client.models.count_tokens(model=self.model_name, contents=chat.get_history())
+        return self.client.models.count_tokens(model=self.model_name, contents = chat.get_history())
 
     def prompts_count(self):
         count = 0

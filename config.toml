@@ -1,5 +1,5 @@
 [model_parameters]
-name = "gemini-2.5-flash-lite"
+name = "gemini-2.5-flash"
 system_instruction = ""
 temperature = 1.0
 
