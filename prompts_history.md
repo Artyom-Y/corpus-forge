@@ -30,3 +30,6 @@
 ### 21-05-2026 17:45
 - **Prompt**: in this, do i have to change the created element to a md tag and switch from textcontent to innerHTML?
 
+### 21-05-2026 17:47
+- **Prompt**: so im thinking of using innerhtml how to go about it?
+
