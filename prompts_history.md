@@ -36,3 +36,6 @@
 ### 21-05-2026 17:50
 - **Prompt**: I have to import these external libraries right, are they installable via pip cause npm is all I can see online and our project doesnt use node
 
+### 21-05-2026 17:52
+- **Prompt**: display the python side implementations, cause I do not understand how a function called in js will be run in main.py
+
