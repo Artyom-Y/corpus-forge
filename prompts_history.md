@@ -24,3 +24,33 @@
 ### 19-05-2026 11:52
 - **Prompt**: i want to use client.chats.create() with history parameter when initializing chat session, so that AI is aware about our previous conversation. what is the input format for history parameter? i should initialize chat with history and then just save new messages (from user and AI) to the json file, right?
 
+### 21-05-2026 17:41
+- **Prompt**: I am trying to parse markdown from the AI to be displayed properly in the js, is there a way I can use the md tag or do i have to use external js libraries
+
+### 21-05-2026 17:45
+- **Prompt**: in this, do i have to change the created element to a md tag and switch from textcontent to innerHTML?
+
+### 21-05-2026 17:47
+- **Prompt**: so im thinking of using innerhtml how to go about it?
+
+### 21-05-2026 17:50
+- **Prompt**: I have to import these external libraries right, are they installable via pip cause npm is all I can see online and our project doesnt use node
+
+### 21-05-2026 17:52
+- **Prompt**: display the python side implementations, cause I do not understand how a function called in js will be run in main.py
+
+### 21-05-2026 17:55
+- **Prompt**: but render message is a function in j
+
+### 21-05-2026 17:57
+- **Prompt**: so wont I recieve a console error, rendermessage undefined
+
+### 21-05-2026 18:00
+- **Prompt**: what is the scrpit tag for renderMessage function
+
+### 21-05-2026 18:01
+- **Prompt**: so rendermessage is a function i write by self, so I deal with the markdown parsingz?
+
+### 21-05-2026 18:16
+- **Prompt**: update journal log
+

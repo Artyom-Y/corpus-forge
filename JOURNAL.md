@@ -63,3 +63,64 @@
 - **Hook Version**: 1.02
 - **Date**: 19-05-2026 11:52
 - **Prompt**: i want to use client.chats.create() with history parameter when initializing chat session, so that AI is aware about our previous conversation. what is the input format for history parameter? i should initialize chat with history and then just save new messages (from user and AI) to the json file, right?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:41
+- **Prompt**: I am trying to parse markdown from the AI to be displayed properly in the js, is there a way I can use the md tag or do i have to use external js libraries
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:45
+- **Prompt**: in this, do i have to change the created element to a md tag and switch from textcontent to innerHTML?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:47
+- **Prompt**: so im thinking of using innerhtml how to go about it?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:50
+- **Prompt**: I have to import these external libraries right, are they installable via pip cause npm is all I can see online and our project doesnt use node
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:52
+- **Prompt**: display the python side implementations, cause I do not understand how a function called in js will be run in main.py
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:55
+- **Prompt**: but render message is a function in j
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 17:57
+- **Prompt**: so wont I recieve a console error, rendermessage undefined
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 18:00
+- **Prompt**: what is the scrpit tag for renderMessage function
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 18:01
+- **Prompt**: so rendermessage is a function i write by self, so I deal with the markdown parsingz?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 21-05-2026 18:16
+- **Prompt**: update journal log
+
+### **New Interaction**
+- **Agent Version**: 2.3
+- **Date**: 21-05-2026 18:16
+- **User**: Artyom-Y
+- **Prompt**: update journal log
+- **CoPilot Mode**: Edit
+- **CoPilot Model**: GPT-5 mini
+- **Socratic Mode**: ON
+- **Changes Made**: Appended a journal entry recording the user's request to update the journal and the recent discussion about rendering AI markdown in the web UI (client-side vs server-side parsing, need for a markdown parser, and sanitization before using `innerHTML`).
+- **Context and Reasons for Changes**: Maintain chronological project log per repository policy; capture decision points and recommendations about markdown rendering and security (use markdown parser + DOMPurify or render server-side with `markdown-it-py`).

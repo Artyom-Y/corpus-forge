@@ -18,7 +18,6 @@
             
         <div id="chat_window">
             <h2>Chat</h2>
-            <p>Send messages, view history</p>
             <div id="dialogue">
                 <!-- TODO: get history by polling /dialogue and render it here (via JS) -->
             </div>
@@ -26,7 +25,7 @@
                 <!-- TODO: message form and submit button. Can't send when the model is thinking -->
                  <form method="post" id="chat-box">
                     <textarea placeholder="Enter your prompt..." id="input-box"></textarea>
-                    <input type="submit" value="Send!" id="send-btn">
+                    <input type="submit" value="Send" id="send-btn">
                  </form>
             </div>
         </div>
@@ -40,6 +39,8 @@
     </main>
 </body>
 <footer>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </footer>
 </html>
