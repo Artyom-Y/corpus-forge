@@ -45,3 +45,6 @@
 ### 21-05-2026 17:57
 - **Prompt**: so wont I recieve a console error, rendermessage undefined
 
+### 21-05-2026 18:00
+- **Prompt**: what is the scrpit tag for renderMessage function
+
