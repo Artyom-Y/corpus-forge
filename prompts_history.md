@@ -51,3 +51,6 @@
 ### 21-05-2026 18:01
 - **Prompt**: so rendermessage is a function i write by self, so I deal with the markdown parsingz?
 
+### 21-05-2026 18:16
+- **Prompt**: update journal log
+
