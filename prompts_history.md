@@ -60,3 +60,6 @@
 ### 24-05-2026 14:09
 - **Prompt**: I'm doing a separation of concerns with my project groupmates, so I want to leave javascript to my colleague. Could you give more precise steps (but without code) for me and him to take? I'm going to start with python and html, he's going to do javascript
 
+### 24-05-2026 18:19
+- **Prompt**: why do booleans set to "" when I check the box on this page? im bad with jinja syntax, could you pinpoint the error? keep the rest intact
+
