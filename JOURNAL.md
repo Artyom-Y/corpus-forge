@@ -124,3 +124,25 @@
 - **Socratic Mode**: ON
 - **Changes Made**: Appended a journal entry recording the user's request to update the journal and the recent discussion about rendering AI markdown in the web UI (client-side vs server-side parsing, need for a markdown parser, and sanitization before using `innerHTML`).
 - **Context and Reasons for Changes**: Maintain chronological project log per repository policy; capture decision points and recommendations about markdown rendering and security (use markdown parser + DOMPurify or render server-side with `markdown-it-py`).
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 24-05-2026 14:01
+- **Prompt**: I'm implementing RAG part of our project. Users may add files to RAG collection using the form in chat.html. It sends the file path to #sym:parse_file, which in turn returns chunks to #sym:add_to_collection. We may add multiple files at a time. We need to display all collections in chromadb in chat.html files sidebar (using #sym:list_collection_names). Each collection must have a "select" and "delete" options. If it's selected, it will be used as a context for the next prompt. If it's deleted #sym:remove_collection will be run. What's my best course of action? I don't want to overcomplicate, but I'm not sure if flask is enough or I have to involve javascript
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 24-05-2026 14:09
+- **Prompt**: I'm doing a separation of concerns with my project groupmates, so I want to leave javascript to my colleague. Could you give more precise steps (but without code) for me and him to take? I'm going to start with python and html, he's going to do javascript
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 24-05-2026 18:19
+- **Prompt**: why do booleans set to "" when I check the box on this page? im bad with jinja syntax, could you pinpoint the error? keep the rest intact
+- **Changes Made**: Fixed the checkbox rendering in `templates/settings.html` so Jinja now uses the `checked` attribute for preselected tools and keeps a constant `value="true"` for each checkbox.
+- **Context and Reasons for Changes**: The previous template wrote the boolean state into the `value` attribute, which produced empty-string submissions when the rendered checkbox was checked from a falsey value. The fix preserves the rest of the form and makes checkbox submission behavior consistent with Flask form handling.
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 24-05-2026 18:24
+- **Prompt**: how do i make it so that python receives a boolean value based on if the checkbox is checked or not

@@ -84,9 +84,10 @@ content_types = {".pdf": "application/pdf", ".md": "text/markdown"}
 
 
 def parse_file(file: str) -> list[str]:
-    path = os.path.join("storage\input", file)
+    path = os.path.join("storage/input", file)
+
     if not os.path.exists(path):
-        return 0
+        raise FileNotFoundError()
     _, file_extension = os.path.splitext(path)
 
     if file_extension in content_types.keys():
@@ -94,6 +95,8 @@ def parse_file(file: str) -> list[str]:
     else:
         elements = partition(filename=path, content_type="text/plain")
     chunks = chunk_by_title(elements, max_characters=150)
+
+    os.remove(path) # file copies are temporarily stored in "input"
     return [clean(str(chunk), extra_whitespace=True) for chunk in chunks]
 
 
@@ -102,7 +105,7 @@ def add_to_collection(chunks, name):
     if name in [
         collection.name for collection in client.list_collections()
     ]:  # files with the same name aren't supported
-        return 0
+        raise ValueError("Files with the same name not allowed")
     collection = client.get_or_create_collection(
         name=name,
         embedding_function=SentenceTransformerEmbeddingFunction(

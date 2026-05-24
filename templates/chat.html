@@ -14,6 +14,14 @@
             <hr>
             <p>Upload, remove, select files to be used for context here</p>
             <!-- TODO: add buttons to add, remove and select uploaded files. Add the list of files below -->
+            <form method="post" enctype="multipart/form-data">
+                <label for="file">Choose files to upload</label>
+                <input type="file" name="file">
+                <input type="submit" value="Upload">
+            </form>
+            {% if file_error is defined %}
+                Error: {{file_error}}
+            {% endif %}
         </div>
             
         <div id="chat_window">
@@ -22,7 +30,7 @@
                 <!-- TODO: get history by polling /dialogue and render it here (via JS) -->
             </div>
             <div id="send_message">
-                <!-- TODO: message form and submit button. Can't send when the model is thinking -->
+                
                  <form method="post" id="chat-box">
                     <textarea placeholder="Enter your prompt..." id="input-box"></textarea>
                     <input type="submit" value="Send" id="send-btn">

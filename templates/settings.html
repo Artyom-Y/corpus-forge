@@ -12,6 +12,51 @@
 <body>
     <!-- Configure config.toml, .env and monitor AI usage -->
     <!-- TODO: simple form using POST method which let's user configure config.toml and .env (google api key) -->
-     {% include "menu.html" %}
+    {% include "menu.html" %}
+
+    <h2>Settings</h2>
+    <p>Please note changes will take place after app restart</p>
+
+    {% if settings_error is defined %}
+      {{settings_error}}
+    {% endif %}
+
+    <form method="post">
+      <label for="name">Choose a model:</label>
+      <select name="name">
+        <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
+        <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+        <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite</option>
+        <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro</option>
+        <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+      </select>
+      <br>
+
+      <label for="system_instruction">System instruction:</label>
+      <textarea placeholder="Enter your system instruction..." value="{{config['model_parameters']['system_instruction']}}" name="system_instruction"></textarea>
+      <br>
+
+      <label for="temperature">Temperature/creativity (better to keep at 1 in most cases!):</label>
+      <input type="range" min="1" max="2" step="0.01" value="{{config['model_parameters']['temperature']}}" name="temperature" oninput="this.nextElementSibling.value = this.value">
+      <output>{{config['model_parameters']['temperature']}}</output>
+      <br>
+
+      <hr>
+
+      <fieldset>
+        <legend>Choose your tools:</legend>
+
+        <label for="google_search">Google search</label>
+        <input type="checkbox" name="google_search" value="true" {% if config['tools']['google_search'] %}checked{% endif %}/>
+      
+        <label for="google_maps">Google maps</label>
+        <input type="checkbox" name="google_maps" value="true" {% if config['tools']['google_maps'] %}checked{% endif %}/>
+
+        <label for="url_context">URL context</label>
+        <input type="checkbox" name="url_context" value="true" {% if config['tools']['url_context'] %}checked{% endif %}/>
+    </fieldset>
+    <input type="submit" value="Update">
+    </form>
 </body>
 </html>
