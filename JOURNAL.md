@@ -139,3 +139,10 @@
 - **Hook Version**: 1.02
 - **Date**: 24-05-2026 18:19
 - **Prompt**: why do booleans set to "" when I check the box on this page? im bad with jinja syntax, could you pinpoint the error? keep the rest intact
+- **Changes Made**: Fixed the checkbox rendering in `templates/settings.html` so Jinja now uses the `checked` attribute for preselected tools and keeps a constant `value="true"` for each checkbox.
+- **Context and Reasons for Changes**: The previous template wrote the boolean state into the `value` attribute, which produced empty-string submissions when the rendered checkbox was checked from a falsey value. The fix preserves the rest of the form and makes checkbox submission behavior consistent with Flask form handling.
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 24-05-2026 18:24
+- **Prompt**: how do i make it so that python receives a boolean value based on if the checkbox is checked or not
