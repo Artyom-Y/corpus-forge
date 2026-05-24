@@ -3,7 +3,7 @@ const chatInput = document.getElementById("input-box");
 const chatForm = document.getElementById("chat-box");
 const sendBtn = document.getElementById("send-btn");
 
-function appendMessage( message, sender) {
+function appendMessage(message, sender) {
     const messageDiv = document.createElement('div');
     // Add classes to the messages and shi
     messageDiv.classList.add('message', `${sender}-msg`);

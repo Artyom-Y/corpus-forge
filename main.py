@@ -1,27 +1,32 @@
+import os
 from flask import Flask, render_template, jsonify, request
+from werkzeug.utils import secure_filename
 from utilities import (
     read_history,
     add_to_history,
     create_env_if_not_exists,
     get_config,
     parse_file,
-    update_config,
+    add_to_collection,
+    list_collection_names,
+    remove_collection
 )
 from model import AIModel
 
 app = Flask(__name__)
 
+# remove on production
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.jinja_env.auto_reload = True
 
 gemini = AIModel()
+UPLOAD_FOLDER = "storage/input"
 
 
 @app.route("/")
 def home():
     create_env_if_not_exists()
     return render_template("chat.html")
-
 
 @app.route("/settings", methods = ["GET", "POST"])
 def settings():
@@ -71,6 +76,35 @@ def post_message():
         
     return jsonify({"error": "The AI encountered an error while thinking."}), 500
 
-# remove on production
+@app.post("/add_file")
+def add_file():
+    file = request.files['file']
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        try:
+            chunks = parse_file(filename)
+            add_to_collection(chunks, filename)
+        except FileNotFoundError:
+            return jsonify({"error": "Couldn't add file to embeddings - filename not found."}), 500
+        except ValueError:
+            return jsonify({"error": "Couldn't add file to embeddings - same file names not allowed."}), 500
+
+
+@app.get("/current_collection")
+def show_current_collections():
+    return list_collection_names()
+
+@app.post("/delete_collection")
+def delete_collection():
+    data = request.json
+    filename = data.get("filename")
+    try:
+        remove_collection(filename)
+    except:
+        return jsonify({"error": "Couldn't remove collection"}), 500
+    
+
 if __name__ == "__main__":
     app.run(debug=True)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
