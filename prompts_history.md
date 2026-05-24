@@ -54,3 +54,6 @@
 ### 21-05-2026 18:16
 - **Prompt**: update journal log
 
+### 24-05-2026 14:01
+- **Prompt**: I'm implementing RAG part of our project. Users may add files to RAG collection using the form in chat.html. It sends the file path to #sym:parse_file, which in turn returns chunks to #sym:add_to_collection. We may add multiple files at a time. We need to display all collections in chromadb in chat.html files sidebar (using #sym:list_collection_names). Each collection must have a "select" and "delete" options. If it's selected, it will be used as a context for the next prompt. If it's deleted #sym:remove_collection will be run. What's my best course of action? I don't want to overcomplicate, but I'm not sure if flask is enough or I have to involve javascript
+
