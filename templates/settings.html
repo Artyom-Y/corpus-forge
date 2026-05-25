@@ -18,10 +18,14 @@
     <p>Please note changes will take place after app restart</p>
 
     {% if settings_error is defined %}
-      {{settings_error}}
+      <span style="color:red">{{settings_error}}</span>
     {% endif %}
 
-    <form method="post">
+    <form method="post" id="settings_form">
+      <label for="google_api_key">Enter google API key:</label>
+      <input type="text" name="google_api_key" value="{{google_api_key}}">
+      <br>
+
       <label for="name">Choose a model:</label>
       <select name="name">
         <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
@@ -34,7 +38,7 @@
       <br>
 
       <label for="system_instruction">System instruction:</label>
-      <textarea placeholder="Enter your system instruction..." value="{{config['model_parameters']['system_instruction']}}" name="system_instruction"></textarea>
+      <textarea placeholder="Enter your system instruction..." name="system_instruction">{{config['model_parameters']['system_instruction']}}</textarea>
       <br>
 
       <label for="temperature">Temperature/creativity (better to keep at 1 in most cases!):</label>

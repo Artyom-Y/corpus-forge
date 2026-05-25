@@ -119,3 +119,9 @@ ul li a:hover {
     color: #2D2926; 
     border-radius: 18px 18px 18px 2px; 
 }
+
+#settings_form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

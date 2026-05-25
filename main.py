@@ -5,6 +5,8 @@ from utilities import (
     read_history,
     add_to_history,
     create_env_if_not_exists,
+    get_google_key,
+    set_google_key,
     get_config,
     update_config,
     config_set_default,
@@ -78,8 +80,10 @@ def delete_collection():
 def settings():
     settings_error = ""
     config = get_config()
+    google_api_key = get_google_key()
     if request.method == "POST":
         new_config = request.form.to_dict()
+        new_google_api_key = new_config.pop("google_api_key")
         try:
             new_config["temperature"] = float(new_config["temperature"])
             new_config["google_search"] = "google_search" in request.form
@@ -87,11 +91,13 @@ def settings():
             new_config["url_context"] = "url_context" in request.form
             update_config(**new_config)
             config = get_config()
+            set_google_key(new_google_api_key)
+            google_api_key = new_google_api_key
         except:
             settings_error = "Couldn't update"
     
     
-    return render_template("settings.html", config = config, settings_error = settings_error)
+    return render_template("settings.html", config = config, settings_error = settings_error, google_api_key = google_api_key)
 
 
 @app.get("/history")
