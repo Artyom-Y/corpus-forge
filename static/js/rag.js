@@ -16,10 +16,16 @@ uploadForm.addEventListener('submit', async (event) => {
     const file = fileInput.files[0];
     if (!file) return;
 
+    const submitBtn = uploadForm.querySelector('input[type="submit"]');
+    const originalBtnText = submitBtn.value;
+
     const formData = new FormData();
     formData.append('file', file);
 
     try {
+        submitBtn.disabled = true;
+        submitBtn.value = 'Uploading...';
+
         const response = await fetch('/upload', {
             method: 'POST',
             body: formData
@@ -35,6 +41,9 @@ uploadForm.addEventListener('submit', async (event) => {
         }    
     } catch (error) {
         console.error("Error uploading file:", error);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.value = originalBtnText;
     }
 });
 
@@ -54,6 +63,7 @@ function addFileToList(filename) {
 
             if (response.ok) {
                 overlayTitle.textContent = filename;
+                overlayTitle.style.wordWrap = 'break-word';
                 overlayContent.textContent = data.content;
                 overlay.classList.add('active');
             } else {
