@@ -1,6 +1,14 @@
 const uploadForm = document.getElementById('upload-form');
 const fileInput = document.getElementById('file-input');
 const fileList = document.getElementById('file-list');
+const overlay = document.getElementById('document-overlay');
+const overlayTitle = document.getElementById('overlay-title');
+const overlayContent = document.getElementById('overlay-content');
+const closeBtn = document.getElementById('close-overlay-btn');
+
+closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('active');
+});
 
 uploadForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -45,7 +53,9 @@ function addFileToList(filename) {
             const data = await response.json();
 
             if (response.ok) {
-                alert(`Content for ${filename}:\n\n${data.content}`);
+                overlayTitle.textContent = filename;
+                overlayContent.textContent = data.content;
+                overlay.classList.add('active');
             } else {
                 alert("Could not load content.");
             }
@@ -55,12 +65,15 @@ function addFileToList(filename) {
     });
 
     fileList.appendChild(li);
+    document.createElement('br');
 }
 
 async function loadFiles() {
     try {
         const response = await fetch('/files');
         const data = await response.json();
+
+        fileList.innerHTML = '';
 
         data.files.forEach(filename => {
             addFileToList(filename);

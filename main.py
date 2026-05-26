@@ -1,4 +1,5 @@
 import os
+import chromadb
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from utilities import (
@@ -57,10 +58,12 @@ def add_file():
         except FileNotFoundError:
             return jsonify({"error": "Couldn't add file to embeddings - filename not found"}), 500
         
-        except ValueError:
-            return jsonify({"error": "Couldn't add file to embeddings - same file names not allowed"}), 400
-        
     return jsonify({"error": "Unknown upload error"}), 500
+
+@app.get('/files')
+def get_files():
+    collections = list_collection_names()
+    return jsonify({'files': collections})
 
 @app.get("/current_collection")
 def show_current_collections():
@@ -133,6 +136,28 @@ def post_message():
             return jsonify({"error": "Failed to connect. Please check if your API key in config is correct."}), 500
         
     return jsonify({"error": "The AI encountered an error while thinking."}), 500
+
+@app.get("/files/<filename>/content")
+def get_file_content(filename):
+    try:
+        collection_name = os.path.splitext(filename)[0]
+        client = chromadb.PersistentClient(path="storage/chroma_db")
+        collection = client.get_collection(collection_name)
+
+        collection_data = collection.get()
+
+        if not collection_data or not collection_data["documents"]:
+            return jsonify({"error": "No content found in the database."}), 404
+        
+        full_text = "\n\n".join(collection_data["documents"])
+        return jsonify({"content": full_text})
+
+    except ValueError:
+        return jsonify({"error": "File not found in the database"}), 400
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({"error": "An internal server error occurred"}), 500
 
 @app.route("/reset")
 def reset():
