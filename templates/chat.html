@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corpus Forge Chat</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rag.css') }}"/>
 </head>
 <body>
     {% include "menu.html" %}
@@ -12,16 +13,23 @@
         <div id="files_sidebar">
             <h2>Files</h2>
             <hr>
-            <p>Upload, remove, select files to be used for context here</p>
-            <!-- TODO: add buttons to add, remove and select uploaded files. Add the list of files below -->
-            <form method="post" enctype="multipart/form-data">
-                <label for="file">Choose files to upload</label>
-                <input type="file" name="file">
+            <form id="upload-form">
+                <label for="file-input">Choose files to upload</label>
+                <input type="file" id="file-input" name="file" required>
                 <input type="submit" value="Upload">
             </form>
             {% if file_error is defined %}
                 Error: {{file_error}}
             {% endif %}
+            <ul id="file-list" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                </ul>
+            <div id="document-overlay">
+                <button id="close-overlay-btn">← Back to Files</button>
+                <h3 id="overlay-title"></h3>
+                <hr>
+                <div id="overlay-content"></div>
+                </div>
+            </div>
         </div>
             
         <div id="chat_window">
@@ -49,6 +57,7 @@
 <footer>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="{{ url_for('static', filename='js/rag.js') }}"></script>
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </footer>
 </html>

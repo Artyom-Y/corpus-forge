@@ -52,10 +52,14 @@ async function handleSendMessage(event) {
     appendMessage(userText, 'user');
     chatInput.value = '';
 
+    const originalPlaceholder = chatInput.placeholder;
+
     chatInput.disabled = true;
     sendBtn.disabled = true;
 
     try {
+        chatInput.placeholder = 'Thinking...';
+
         const response = await fetch('/dialogue', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -80,6 +84,7 @@ async function handleSendMessage(event) {
     } finally {
         chatInput.disabled = false;
         sendBtn.disabled = false;
+        chatInput.placeholder = originalPlaceholder;
 
         chatInput.focus();
     }

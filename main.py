@@ -1,4 +1,5 @@
 import os
+import chromadb
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from utilities import (
@@ -18,13 +19,14 @@ from utilities import (
 from model import AIModel
 
 app = Flask(__name__)
+UPLOAD_FOLDER = "storage/input"
 
 # remove on production
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.jinja_env.auto_reload = True
 
 gemini = AIModel()
-UPLOAD_FOLDER = "storage/input"
 
 
 @app.route("/")
@@ -32,21 +34,36 @@ def home():
     create_env_if_not_exists()
     return render_template("chat.html")
 
-@app.post("/")
+@app.post("/upload")
 def add_file():
-    file_error = ""
+    if 'file' not in request.files:
+        return jsonify({"error": "No file provided in request"}), 400
+    
     file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+    
     if file:
         filename = secure_filename(file.filename)
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
         try:
             chunks = parse_file(filename)
             add_to_collection(chunks, filename)
+
+            return jsonify({"status": "success", "filename": filename})
+        
         except FileNotFoundError:
-            file_error = "Couldn't add file to embeddings - filename not found."
-        except ValueError:
-            file_error = "Couldn't add file to embeddings - same file names not allowed."
-    return redirect(url_for('/', file_error=file_error))
+            return jsonify({"error": "Couldn't add file to embeddings - filename not found"}), 500
+        
+    return jsonify({"error": "Unknown upload error"}), 500
+
+@app.get('/files')
+def get_files():
+    collections = list_collection_names()
+    return jsonify({'files': collections})
 
 @app.get("/current_collection")
 def show_current_collections():
@@ -120,6 +137,28 @@ def post_message():
         
     return jsonify({"error": "The AI encountered an error while thinking."}), 500
 
+@app.get("/files/<filename>/content")
+def get_file_content(filename):
+    try:
+        collection_name = os.path.splitext(filename)[0]
+        client = chromadb.PersistentClient(path="storage/chroma_db")
+        collection = client.get_collection(collection_name)
+
+        collection_data = collection.get()
+
+        if not collection_data or not collection_data["documents"]:
+            return jsonify({"error": "No content found in the database."}), 404
+        
+        full_text = "\n\n".join(collection_data["documents"])
+        return jsonify({"content": full_text})
+
+    except ValueError:
+        return jsonify({"error": "File not found in the database"}), 400
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({"error": "An internal server error occurred"}), 500
+
 @app.route("/reset")
 def reset():
     if os.path.exists("storage/history.json"):
@@ -130,4 +169,3 @@ def reset():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
