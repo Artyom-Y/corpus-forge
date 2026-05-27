@@ -59,10 +59,10 @@ class AIModel:
         augmented_prompt = form_prompt(content_type, collection_names)
         content = self.generate_response(augmented_prompt, []) # prompt already contains info from collections
 
-        current_files = [f for f in os.listdir("storage/output") if os.path.isfile(os.join("storage/output", f))]
+        current_files = [f for f in os.listdir("storage/output") if os.path.isfile(os.path.join("storage/output", f))]
 
         file_index = 1
-        filename = "content_type" + str(file_index)
+        filename = f"{content_type}" + str(file_index)
         while filename in current_files:
             file_index += 1
             filename = filename + str(file_index)

@@ -14,15 +14,15 @@ Task:
 Rules:
 - Use only facts supported by the provided context.
 - Do not invent details not present in the source material.
-- Return a complete HTML document only.
 - Do not add markdown fences, explanations, or extra commentary.
-- Keep the HTML self-contained and simple enough to save as a file and open directly in a browser. You may add CSS for readability.
+- Use only HTML with simplistic CSS and Javascript (e.g. for quiz score calculation)
+- Keep the file self-contained and simple enough to save as a file and open directly in a browser.
 - If the information is limited on a certain subject, keep output about that subject minimal rather than fabricating content.
 
 Output:
-- Return only the final HTML.""",
+- Return only the final code.""",
 
-"flashcard":
+"flashcards":
 """You are generating a simple flashcards webpage for studying based on the context above. And chat interactions (if they exist).
 
 Task:
@@ -37,13 +37,13 @@ Task:
 Rules:
 - Use only facts supported by the provided context.
 - Do not invent details not present in the source material.
-- Return a complete HTML document only.
 - Do not add markdown fences, explanations, or extra commentary.
-- Keep the HTML self-contained and simple enough to save as a file and open directly in a browser. You may add CSS for readability.
+- Use only HTML with simplistic CSS and Javascript (e.g. for quiz score calculation)
+- Keep the file self-contained and simple enough to save as a file and open directly in a browser.
 - If the information is limited on a certain subject, keep output about that subject minimal rather than fabricating content.
 
 Output:
-- Return only the final HTML.""",
+- Return only the final code.""",
 
 "visualization":
 """You are generating a simple html page with a mermaid diagram using the provided context. 
@@ -63,18 +63,17 @@ Task:
 Rules:
 - Use only facts supported by the provided files.
 - Do not invent details not present in the source material.
-- Return a complete HTML document only.
 - Do not add markdown fences, explanations, or extra commentary.
 - Keep the HTML self-contained and simple enough to save as a file and open directly in a browser.
 - If the information is limited on a certain subject, keep output about that subject minimal rather than fabricating content.
 
 Output:
-- Return only the final HTML."""
+- Return only the final code."""
 }
 
 chromadb_queries = {
     "quiz": "Select key facts, terminology and definitions for a quiz.",
-    "flashcard": "Select most important information for making studying flashcards.",
+    "flashcards": "Select most important information for making studying flashcards.",
     "vizualization": "Select key data and relationships for building a chart."
 }
 
