@@ -1,6 +1,6 @@
 import os
 import chromadb
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory
 from werkzeug.utils import secure_filename
 from utilities import (
     read_history,
@@ -166,14 +166,49 @@ def get_file_content(filename):
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"error": "An internal server error occurred"}), 500
+    
+@app.post("/generate_tool")
+def generate_tool():
+    data = request.json
+
+    tool_type = data.get("type")
+    collections = data.get("collections_names", [])
+
+    if not tool_type:
+        return jsonify({"error": "Tool type is required"}), 400
+    
+    if not collections:
+        return jsonify({"error": "Please select at least one file for context."}), 400
+    
+    try:
+        filepath = gemini.generate_content(tool_type, collections)
+        filename = os.path.basename(filepath)
+
+        return jsonify({"status": "success", "url": f"/output/{filename}"})
+    except Exception as e:
+        print(f"Generate error: {e}")
+        return jsonify({"error": "Failed to generate content"}), 500
+
+@app.get('/generated_tools')
+def get_generated_tools():
+    output_dir = "storage/output"
+
+    if not os.path.exists(output_dir):
+        return jsonify({'files': []})
+    
+    files = [f for f in os.listdir(output_dir) if f.endswith('.html')]
+
+    return jsonify({'files': files})
+
+@app.get("/storage/output/<filename>")
+def serve_generated_file(filename):
+    return send_from_directory("storage/output", filename)
 
 @app.route("/reset")
 def reset():
     if os.path.exists("storage/history.json"):
         os.remove("storage/history.json")
     config_set_default()
-    
-    
 
 if __name__ == "__main__":
     app.run(debug=True)

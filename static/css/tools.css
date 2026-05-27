@@ -1,0 +1,110 @@
+.sidebar-instructions {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.tool-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;           
+    margin-bottom: 25px; 
+}
+
+.tool-btn {
+    background-color: #2D2926;    
+    color: #F5EBE0;               
+    border: none;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.tool-btn:hover:not(:disabled) {
+    background-color: #4a4541;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.tool-btn:active:not(:disabled) {
+    transform: scale(0.97) translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.tool-btn:disabled {
+    background-color: #8c8987;
+    color: #e0e0e0;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+#tool-status {
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #D4A373;               
+    text-align: center;
+    min-height: 20px;             
+}
+
+#generated-tools-container {
+    margin-top: 20px;
+    background-color: #FAFAFA;
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#generated-tools-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #EAEAEA;
+    padding-bottom: 6px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+#generated-tools-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.generated-file-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: #FFFFFF;
+    border: 1px solid #D4A373;    
+    color: #2D2926;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.generated-file-link:hover {
+    background-color: #F5EBE0;
+    border-color: #b58555;
+    transform: translateX(4px);   
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.05);
+}

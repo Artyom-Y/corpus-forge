@@ -6,6 +6,12 @@
     <title>Corpus Forge Chat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/rag.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tools.css') }}"/>
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
 </head>
 <body>
     {% include "menu.html" %}
@@ -49,14 +55,28 @@
         <div id="tools_sidebar">
             <h2>Tools</h2>
             <hr>
-            <p>Generate quizzes and flashcards</p>
+            <p>Select files from the left sidebar to generate study materials.</p>
             <!-- TODO: add action buttons (e.g. for quiz, flashcards...) and a list of generated content which you can open (links to open html files in the output folder) -->
+            
+            <div class="tool-buttons-container">
+                <button id="btn-quiz" class="tool-btn">Generate Quiz</button>
+                <button id="btn-flashcards" class="tool-btn">Generate Flashcards</button>
+            </div>
+
+            <p id="tool-status"></p>
+
+            <div id="generated-tools-container">
+                <h3 id="generated-tools-header" style="display: none;">Your Files:</h3>
+                <ul id="generated-tools-list">
+                    </ul>
+            </div>
         </div>
     </main>
 </body>
 <footer>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="{{ url_for('static', filename='js/tools.js') }}"></script>
     <script src="{{ url_for('static', filename='js/rag.js') }}"></script>
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </footer>
