@@ -75,3 +75,6 @@
 ### 27-05-2026 13:30
 - **Prompt**: ok, how to properly build a prompt for it? maybe i should run copilot's /createagent command? i'm not familiar with prompt engineering
 
+### 27-05-2026 14:28
+- **Prompt**: How will this work with chromadb? It only performs similarity search. And I want AI to generate content based on the provided files. So it works well for extending prompts with context, but what about content generation?
+
