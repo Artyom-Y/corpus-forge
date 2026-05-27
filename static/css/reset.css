@@ -1,0 +1,21 @@
+* {
+    font-family: "Sora", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+#files_sidebar, #chat_window, #tools_sidebar {
+    padding: 20px;
+}

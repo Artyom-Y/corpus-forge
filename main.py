@@ -1,6 +1,6 @@
 import os
 import chromadb
-from flask import Flask, render_template, jsonify, request, send_from_directory
+from flask import Flask, render_template, jsonify, request, send_from_directory, redirect, url_for
 from werkzeug.utils import secure_filename
 from utilities import (
     read_history,
@@ -89,7 +89,7 @@ def settings():
     settings_error = ""
     config = get_config()
     google_api_key = get_google_key()
-    token_count = gemini.token_count().total_tokens
+    token_count = gemini.token_count()
     prompt_count = gemini.prompts_count()
 
     if request.method == "POST":
@@ -109,7 +109,6 @@ def settings():
     
     
     return render_template("settings.html", config = config, settings_error = settings_error, google_api_key = google_api_key, token_count=token_count, prompt_count=prompt_count)
-
 
 @app.get("/history")
 def get_messages():
@@ -204,11 +203,34 @@ def get_generated_tools():
 def serve_generated_file(filename):
     return send_from_directory("storage/output", filename)
 
+@app.post("/delete_tool")
+def delete_tool():
+    data = request.get_json()
+    filename = data.get("filename")
+    
+    if not filename:
+        return jsonify({"error": "No filename provided"}), 400
+
+    filepath = os.path.join("storage/output", filename)
+    
+    try:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+            return jsonify({"status": "success"})
+        else:
+            return jsonify({"error": "File not found"}), 404
+            
+    except Exception as e:
+        print(f"Delete tool error: {e}")
+        return jsonify({"error": "Could not delete file"}), 500
+
 @app.route("/reset")
 def reset():
     if os.path.exists("storage/history.json"):
         os.remove("storage/history.json")
     config_set_default()
+
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

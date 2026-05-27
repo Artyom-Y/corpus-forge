@@ -15,7 +15,39 @@ function addLinkToList(url, filename) {
     link.textContent = filename;
     link.classList.add('generated-file-link');
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = 'X';
+    deleteBtn.classList.add('delete-tool-btn');
+    deleteBtn.title = "Delete " + filename;
+
+    deleteBtn.addEventListener('click', async () => {
+        if (!confirm(`Are you sure you want to permanently delete ${filename}?`)) return;
+
+        try {
+            const response = await fetch('/delete_tool', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename: filename })
+            });
+
+            if (response.ok) {
+                li.remove(); 
+                
+                if (generatedList.children.length === 0) {
+                    generatedHeader.style.display = 'none';
+                }
+            } else {
+                const data = await response.json();
+                alert("Failed to delete: " + data.error);
+            }
+        } catch (error) {
+            console.error("Error deleting tool:", error);
+            alert("A network error occurred.");
+        }
+    });
+
     li.appendChild(link);
+    li.appendChild(deleteBtn);
     generatedList.appendChild(li);
 }
 

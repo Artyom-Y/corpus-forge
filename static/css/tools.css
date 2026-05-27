@@ -108,3 +108,35 @@
     transform: translateX(4px);   
     box-shadow: -2px 2px 5px rgba(0,0,0,0.05);
 }
+
+.generated-tool-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.generated-file-link {
+    flex-grow: 1;
+}
+
+.delete-tool-btn {
+    background-color: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    color: #c9302c;               
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-tool-btn:hover {
+    background-color: #f2dede;    
+    color: #a94442;
+    border-color: #ebccd1;
+    transform: scale(1.05);       
+}
