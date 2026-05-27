@@ -156,3 +156,8 @@
 - **Hook Version**: 1.02
 - **Date**: 27-05-2026 13:21
 - **Prompt**: our last step of the project is content generation: quiz, flashcards and visualization based on provided files. me and my colleague are splitting the responsibilities: i figure out how to make ai generate html and where to save the result, he works on displaying the result on the front page (and so that it redirects the user to the said generated html page). the generating part is confusing. we have a very limited time, so we must think of something simple and practical. i'm thinking of making a pre-made prompt, executing it and then saving the result (not sure where though. storage/output or templates/output). what are my options? agents seem too complicated, but maybe i'm wrong
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 27-05-2026 13:30
+- **Prompt**: ok, how to properly build a prompt for it? maybe i should run copilot's /createagent command? i'm not familiar with prompt engineering
