@@ -171,3 +171,8 @@
 - **Hook Version**: 1.02
 - **Date**: 27-05-2026 18:30
 - **Prompt**: so i better write two things in prompts.py: query to chromadb (e.g. select key information to test the user) and pormpt for the ai (e.g. generate the quiz using this structure, based on the context above). and the context will be provided by chromadb query. or do i just give whatever i have in prompts.py to chromadb?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 27-05-2026 19:09
+- **Prompt**: Could you give me a strict list of mermaid javascript library syntax rules, so that i can give it to ai?
