@@ -6,7 +6,7 @@
     <title>Settings</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/chat_style.css')}}"
+      href="{{ url_for('static', filename='css/chat.css')}}"
     />
 </head>
 <body>
@@ -14,12 +14,14 @@
     <!-- TODO: simple form using POST method which let's user configure config.toml and .env (google api key) -->
     {% include "menu.html" %}
 
-    <h2>Settings</h2>
-    <p>Please note changes will take place after app restart</p>
+    <div id="header_text">
+      <h2>Settings</h2>
+      <p>Please note changes will take place after app restart</p>
 
-    {% if settings_error is defined %}
-      <span style="color:red">{{settings_error}}</span>
-    {% endif %}
+      {% if settings_error is defined %}
+        <span style="color:red">{{settings_error}}</span>
+      {% endif %}
+    </div>
 
     <form method="post" id="settings_form">
       <label for="google_api_key">Enter google API key:</label>
@@ -62,5 +64,11 @@
     </fieldset>
     <input type="submit" value="Update">
     </form>
+
+    <div id="ai_usage">
+      <h2>AI Usage</h2>
+        Total tokens: {{token_count}} <br>
+        User prompts: {{prompt_count}}
+    </div>
 </body>
 </html>

@@ -40,13 +40,13 @@ class AIModel:
         
         return self.client.chats.create(model=self.model_name, history=history, config=chat_config)
 
-    def generate_response(self, prompt: str, collections_names: list[str]):
-        if collections_names:
+    def generate_response(self, prompt: str, collection_names: list[str]):
+        if collection_names:
             context = "Context: \n"
-            for collections_name in collections_names:
-                context += get_context(prompt, collections_name)
+            for collection_name in collection_names:
+                context += get_context(prompt, collection_name)
         
-            prompt = prompt + "\n" + context
+            prompt = context + "\n" + prompt
 
         chat = self.get_chat()
         response = chat.send_message(prompt)

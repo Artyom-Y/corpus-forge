@@ -1,6 +1,6 @@
 import os
 import chromadb
-from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask import Flask, render_template, jsonify, request
 from werkzeug.utils import secure_filename
 from utilities import (
     read_history,
@@ -84,6 +84,9 @@ def settings():
     settings_error = ""
     config = get_config()
     google_api_key = get_google_key()
+    token_count = gemini.token_count().total_tokens
+    prompt_count = gemini.prompts_count()
+
     if request.method == "POST":
         new_config = request.form.to_dict()
         new_google_api_key = new_config.pop("google_api_key")
@@ -100,7 +103,7 @@ def settings():
             settings_error = "Couldn't update"
     
     
-    return render_template("settings.html", config = config, settings_error = settings_error, google_api_key = google_api_key)
+    return render_template("settings.html", config = config, settings_error = settings_error, google_api_key = google_api_key, token_count=token_count, prompt_count=prompt_count)
 
 
 @app.get("/history")

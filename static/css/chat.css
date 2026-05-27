@@ -122,8 +122,17 @@
     border-radius: 18px 18px 18px 2px; 
 }
 
+#header_text {
+    padding: 10px 20px 10px 20px;
+}
+
 #settings_form {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 30%;
+    padding: 10px 20px 10px 20px;
+}
+
+#ai_usage {
+    padding: 10px 20px 10px 20px;
 }
