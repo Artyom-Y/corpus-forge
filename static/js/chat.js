@@ -3,14 +3,44 @@ const chatInput = document.getElementById("input-box");
 const chatForm = document.getElementById("chat-box");
 const sendBtn = document.getElementById("send-btn");
 
-function appendMessage( message, sender) {
+function appendMessage(message, sender) {
     const messageDiv = document.createElement('div');
     // Add classes to the messages and shi
     messageDiv.classList.add('message', `${sender}-msg`);
-    messageDiv.textContent = message;
+
+    if (sender === 'ai') {
+        const rawhtml = marked.parse(message)
+        const cleanhtml = DOMPurify.sanitize(rawhtml);
+        messageDiv.innerHTML = cleanhtml;
+    } else {
+        messageDiv.textContent = message;
+    }
 
     chatDisplay.appendChild(messageDiv);
-    chatDisplay.scrollTop = chatForm.scrollHeight;
+    chatDisplay.scrollTop = chatDisplay.scrollHeight;
+}
+
+async function loadHistory() {
+    try {
+        const response = await fetch('/history');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const historyData = await response.json();
+
+        historyData.forEach(msg => {
+            if (msg.role && msg.parts && msg.parts.length > 0) {
+                const sender = msg.role === 'model' ? 'ai' : 'user';
+                const text = msg.parts[0].text;
+
+                appendMessage(text, sender);
+            }
+        });
+    } catch (error) {
+        console.error("Error loading history:", error);
+    }
 }
 
 async function handleSendMessage(event) {
@@ -22,10 +52,14 @@ async function handleSendMessage(event) {
     appendMessage(userText, 'user');
     chatInput.value = '';
 
+    const originalPlaceholder = chatInput.placeholder;
+
     chatInput.disabled = true;
     sendBtn.disabled = true;
 
     try {
+        chatInput.placeholder = 'Thinking...';
+
         const response = await fetch('/dialogue', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -50,12 +84,14 @@ async function handleSendMessage(event) {
     } finally {
         chatInput.disabled = false;
         sendBtn.disabled = false;
+        chatInput.placeholder = originalPlaceholder;
 
         chatInput.focus();
     }
 }
 
 chatForm.addEventListener('submit', handleSendMessage);
+sendBtn.addEventListener('click', handleSendMessage);
 
 chatInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
@@ -63,3 +99,5 @@ chatInput.addEventListener('keydown', (event) => {
         handleSendMessage(event);
     }
 });
+
+window.addEventListener('DOMContentLoaded', loadHistory);

@@ -84,27 +84,33 @@ content_types = {".pdf": "application/pdf", ".md": "text/markdown"}
 
 
 def parse_file(file: str) -> list[str]:
-    path = os.path.join("storage\input", file)
+    path = os.path.join("storage/input", file)
+
     if not os.path.exists(path):
-        return 0
+        raise FileNotFoundError()
     _, file_extension = os.path.splitext(path)
 
     if file_extension in content_types.keys():
-        elements = partition(filename=path, content_type=content_types[file_extension])
+        elements = partition(filename=path, content_type=content_types[file_extension], strategy="fast")
     else:
-        elements = partition(filename=path, content_type="text/plain")
+        elements = partition(filename=path, content_type="text/plain", strategy="fast")
     chunks = chunk_by_title(elements, max_characters=150)
+
+    os.remove(path) # file copies are temporarily stored in "input"
     return [clean(str(chunk), extra_whitespace=True) for chunk in chunks]
 
 
 def add_to_collection(chunks, name):
-    client = chromadb.PersistentClient(path="storage")
-    if name in [
+    client = chromadb.PersistentClient(path="storage/chroma_db")
+
+    collection_name = os.path.splitext(name)[0]
+
+    if collection_name in [
         collection.name for collection in client.list_collections()
     ]:  # files with the same name aren't supported
-        return 0
+        raise ValueError("Files with the same name not allowed")
     collection = client.get_or_create_collection(
-        name=name,
+        name=collection_name,
         embedding_function=SentenceTransformerEmbeddingFunction(
             model_name="all-MiniLM-L6-v2"
         ),
@@ -113,18 +119,20 @@ def add_to_collection(chunks, name):
 
 
 def remove_collection(name):
-    client = chromadb.PersistentClient(path="storage")
-    client.delete_collection(name)
+    client = chromadb.PersistentClient(path="storage/chroma_db")
+    collection_name = os.path.splitext(name)[0]
+
+    client.delete_collection(collection_name)
 
 
 def list_collection_names():
-    client = chromadb.PersistentClient(path="storage")
+    client = chromadb.PersistentClient(path="storage/chroma_db")
     return [collection.name for collection in client.list_collections()]
 
 
 def get_context(query, collection_name, n_results=3):
     """Retrieve context based on one collection"""
-    client = chromadb.PersistentClient(path="storage")
+    client = chromadb.PersistentClient(path="storage/chroma_db")
     collection = client.get_collection(collection_name)
     results = collection.query(query_texts=[query], n_results=n_results)
     return "\n".join(results["documents"][0]) + "\n"
@@ -154,3 +162,4 @@ def add_to_history(text, role, path="storage/history.json"):
 
 def empty_history():
     open("storage/history.json", "w").close()
+    
