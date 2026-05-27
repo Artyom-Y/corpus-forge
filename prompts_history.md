@@ -78,3 +78,6 @@
 ### 27-05-2026 14:28
 - **Prompt**: How will this work with chromadb? It only performs similarity search. And I want AI to generate content based on the provided files. So it works well for extending prompts with context, but what about content generation?
 
+### 27-05-2026 18:30
+- **Prompt**: so i better write two things in prompts.py: query to chromadb (e.g. select key information to test the user) and pormpt for the ai (e.g. generate the quiz using this structure, based on the context above). and the context will be provided by chromadb query. or do i just give whatever i have in prompts.py to chromadb?
+
