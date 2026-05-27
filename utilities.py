@@ -162,3 +162,4 @@ def add_to_history(text, role, path="storage/history.json"):
 
 def empty_history():
     open("storage/history.json", "w").close()
+    

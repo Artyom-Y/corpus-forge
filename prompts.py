@@ -1,7 +1,7 @@
 from utilities import get_context
 
 ai_prompts = {
-"Quiz": 
+"quiz": 
 """You are generating a simple html webpage with a quiz based on the context above. And chat interactions (if they exist).
 
 Task:
@@ -22,7 +22,7 @@ Rules:
 Output:
 - Return only the final HTML.""",
 
-"Flashcard":
+"flashcard":
 """You are generating a simple flashcards webpage for studying based on the context above. And chat interactions (if they exist).
 
 Task:
@@ -45,7 +45,7 @@ Rules:
 Output:
 - Return only the final HTML.""",
 
-"Visualization":
+"visualization":
 """You are generating a simple html page with a mermaid diagram using the provided context. 
 The goal is to represent the relationships visually.
 
@@ -73,22 +73,22 @@ Output:
 }
 
 chromadb_queries = {
-    "Quiz": "Select key facts, terminology and definitions for a quiz.",
-    "Flashcards": "Select most important information for making studying flashcards.",
-    "Vizualization": "Select key data and relationships for building a chart."
+    "quiz": "Select key facts, terminology and definitions for a quiz.",
+    "flashcard": "Select most important information for making studying flashcards.",
+    "vizualization": "Select key data and relationships for building a chart."
 }
 
 def form_prompt(content_type, collection_names):
+    content_type = content_type.lower()
     chromadb_query = chromadb_queries[content_type]
     ai_prompt = ai_prompts[content_type]
 
     if collection_names:
             context = "Context: \n"
             for collection_name in collection_names:
-                context += get_context(chromadb_query, collection_name, n_results=10)
+                context += get_context(chromadb_query, collection_name, n_results=15)
     else:
          raise ValueError("No collection names given")
     
     prompt = context + "\n" + ai_prompt
     return prompt
-

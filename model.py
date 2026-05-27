@@ -1,7 +1,9 @@
 from google import genai
 from google.genai import types
-from utilities import get_google_key, read_history, get_context, parse_file
+from utilities import get_google_key, read_history, get_context
+from prompts import form_prompt
 import toml
+import os
 
 class AIModel:
     def __init__(self):
@@ -52,6 +54,24 @@ class AIModel:
         response = chat.send_message(prompt)
         
         return response.text
+    
+    def generate_content(self, content_type, collection_names):
+        augmented_prompt = form_prompt(content_type, collection_names)
+        content = self.generate_response(augmented_prompt, []) # prompt already contains info from collections
+
+        current_files = [f for f in os.listdir("storage/output") if os.path.isfile(os.join("storage/output", f))]
+
+        file_index = 1
+        filename = "content_type" + str(file_index)
+        while filename in current_files:
+            file_index += 1
+            filename = filename + str(file_index)
+
+        path = os.path.join("storage/output", f"{filename}.html")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+        return path
 
     def token_count(self):
         chat = self.get_chat()
@@ -62,6 +82,5 @@ class AIModel:
         history = read_history()
         for msg in history:
             if getattr(msg, 'role', None) == "user" or (isinstance(msg, dict) and msg.get("role") == "user"):
-                count += 1
-                
+                count += 1 
         return count
