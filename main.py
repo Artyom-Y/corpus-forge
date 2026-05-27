@@ -72,10 +72,15 @@ def show_current_collections():
 
 @app.post("/delete_collection")
 def delete_collection():
-    filename = request.form.get("file")
+    data = request.json
+    if not data or 'file' not in data:
+        return jsonify({"error": "No file specified"}), 400
+    
+    filename = data.get("file")
     try:
         remove_collection(filename)
-    except:
+        return jsonify({"status": "succes"})
+    except Exception as e:
         return jsonify({"error": "Couldn't remove collection"}), 500
 
 

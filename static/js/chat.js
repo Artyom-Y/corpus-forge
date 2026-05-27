@@ -58,12 +58,15 @@ async function handleSendMessage(event) {
     sendBtn.disabled = true;
 
     try {
+        const checkedBoxes = document.querySelectorAll('.file-checkbox:checked');
+        const selectedCollections = Array.from(checkedBoxes).map(checkbox => checkbox.value);
+        
         chatInput.placeholder = 'Thinking...';
 
         const response = await fetch('/dialogue', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({prompt: userText, collections_names: []})
+            body: JSON.stringify({prompt: userText, collections_names: selectedCollections})
         });
 
         if (!response.ok) {
