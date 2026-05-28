@@ -49,33 +49,62 @@ uploadForm.addEventListener('submit', async (event) => {
 
 function addFileToList(filename) {
     const li = document.createElement('li');
-    li.textContent = filename;
 
-    li.style.cursor = 'pointer';
-    li.style.color = '#007BFF';
-    li.style.textDecoration = 'underline';
-    li.style.marginBottom = '10px';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = filename.split('.')[0];
+    checkbox.classList.add('file-checkbox');
+    checkbox.addEventListener('click', (e) => e.stopPropagation());
 
-    li.addEventListener('click', async () => {
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = filename;
+    nameSpan.classList.add('file-name-text');
+    nameSpan.addEventListener('click', async (e) => {
         try {
             const response = await fetch(`/files/${filename}/content`);
             const data = await response.json();
-
             if (response.ok) {
                 overlayTitle.textContent = filename;
-                overlayTitle.style.wordWrap = 'break-word';
                 overlayContent.textContent = data.content;
                 overlay.classList.add('active');
             } else {
-                alert("Could not load content.");
+                alert("Could not load content");
             }
         } catch (error) {
-            console.error("Error loading file content:", error);
+            console.error("Error fetching content:",error);
         }
     });
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = 'X';
+    deleteBtn.classList.add('delete-file-btn');
+    deleteBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        
+        if (!confirm(`Are you sure you want to delete ${filename}?`)) return;
+
+        try {
+            const response = await fetch('/delete_collection', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({file: filename})
+            });
+
+            if (response.ok) {
+                li.remove();
+            } else {
+                alert("Failed to delete file from database");
+            }
+        } catch (error) {
+            console.error("Error deleting file:", error);
+        }
+    });
+    
+    li.appendChild(checkbox);
+    li.appendChild(nameSpan);
+    li.appendChild(deleteBtn);
+
     fileList.appendChild(li);
-    document.createElement('br');
 }
 
 async function loadFiles() {

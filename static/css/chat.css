@@ -1,13 +1,8 @@
-* {
-    font-family: "Poppins", sans-serif;
-    margin-left: 0;
-}
-
 .menu {
     margin: 0;
-    padding: 0;
+    padding: 15px 20px;
     list-style-type: none;
-    background-color: #915e42;
+    background-color: #2D2926;
     display: flex;
 }
 
@@ -20,6 +15,7 @@
 
 .menu li a:hover {
     background-color: #744830;
+    border-radius: 5px;
 }
 
 #main_container {
@@ -37,6 +33,7 @@
 }
 
 #chat_window {
+    margin-top: 15px;
     padding: 10px;
     height: 90vh;
     flex: 2;
@@ -119,7 +116,7 @@
     align-self: flex-start; 
     background-color: #D4A373;
     color: #2D2926; 
-    border-radius: 18px 18px 18px 2px; 
+    border-radius: 18px 18px 18px 2px;
 }
 
 #header_text {
@@ -135,4 +132,30 @@
 
 #ai_usage {
     padding: 10px 20px 10px 20px;
+}
+
+.nav-visualize-btn {
+    background-color: #007BFF;       
+    color: #FFFFFF !important;       
+    padding: 6px 14px;
+    border-radius: 20px;             
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 15px;               
+    transition: all 0.2s ease;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+.nav-visualize-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+    text-decoration: none;
+}
+
+.nav-visualize-btn:active {
+    transform: translateY(1px);
+    box-shadow: none;
 }

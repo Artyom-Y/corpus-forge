@@ -62,10 +62,11 @@ class AIModel:
         current_files = [f for f in os.listdir("storage/output") if os.path.isfile(os.path.join("storage/output", f))]
 
         file_index = 1
-        filename = f"{content_type}" + str(file_index)
-        while filename in current_files:
+        filename = f"{content_type}{file_index}"
+
+        while f"{filename}.html" in current_files:
             file_index += 1
-            filename = filename + str(file_index)
+            filename = f"{content_type}{file_index}"
 
         path = os.path.join("storage/output", f"{filename}.html")
         with open(path, "w", encoding="utf-8") as f:
@@ -75,7 +76,13 @@ class AIModel:
 
     def token_count(self):
         chat = self.get_chat()
-        return self.client.models.count_tokens(model=self.model_name, contents = chat.get_history())
+        history = chat.get_history()
+
+        if not history:
+            return 0
+        
+        response = self.client.models.count_tokens(model=self.model_name, contents=history)
+        return response.total_tokens
 
     def prompts_count(self):
         count = 0

@@ -1,6 +1,6 @@
 import os
 import chromadb
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory, redirect, url_for
 from werkzeug.utils import secure_filename
 from utilities import (
     read_history,
@@ -72,10 +72,15 @@ def show_current_collections():
 
 @app.post("/delete_collection")
 def delete_collection():
-    filename = request.form.get("file")
+    data = request.json
+    if not data or 'file' not in data:
+        return jsonify({"error": "No file specified"}), 400
+    
+    filename = data.get("file")
     try:
         remove_collection(filename)
-    except:
+        return jsonify({"status": "succes"})
+    except Exception as e:
         return jsonify({"error": "Couldn't remove collection"}), 500
 
 
@@ -84,7 +89,7 @@ def settings():
     settings_error = ""
     config = get_config()
     google_api_key = get_google_key()
-    token_count = gemini.token_count().total_tokens
+    token_count = gemini.token_count()
     prompt_count = gemini.prompts_count()
 
     if request.method == "POST":
@@ -104,7 +109,6 @@ def settings():
     
     
     return render_template("settings.html", config = config, settings_error = settings_error, google_api_key = google_api_key, token_count=token_count, prompt_count=prompt_count)
-
 
 @app.get("/history")
 def get_messages():
@@ -161,14 +165,72 @@ def get_file_content(filename):
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"error": "An internal server error occurred"}), 500
+    
+@app.post("/generate_tool")
+def generate_tool():
+    data = request.json
+
+    tool_type = data.get("type")
+    collections = data.get("collections_names", [])
+
+    if not tool_type:
+        return jsonify({"error": "Tool type is required"}), 400
+    
+    if not collections:
+        return jsonify({"error": "Please select at least one file for context."}), 400
+    
+    try:
+        filepath = gemini.generate_content(tool_type, collections)
+        filename = os.path.basename(filepath)
+
+        return jsonify({"status": "success", "url": f"/output/{filename}"})
+    except Exception as e:
+        print(f"Generate error: {e}")
+        return jsonify({"error": "Failed to generate content"}), 500
+
+@app.get('/generated_tools')
+def get_generated_tools():
+    output_dir = "storage/output"
+
+    if not os.path.exists(output_dir):
+        return jsonify({'files': []})
+    
+    files = [f for f in os.listdir(output_dir) if f.endswith('.html')]
+
+    return jsonify({'files': files})
+
+@app.get("/storage/output/<filename>")
+def serve_generated_file(filename):
+    return send_from_directory("storage/output", filename)
+
+@app.post("/delete_tool")
+def delete_tool():
+    data = request.get_json()
+    filename = data.get("filename")
+    
+    if not filename:
+        return jsonify({"error": "No filename provided"}), 400
+
+    filepath = os.path.join("storage/output", filename)
+    
+    try:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+            return jsonify({"status": "success"})
+        else:
+            return jsonify({"error": "File not found"}), 404
+            
+    except Exception as e:
+        print(f"Delete tool error: {e}")
+        return jsonify({"error": "Could not delete file"}), 500
 
 @app.route("/reset")
 def reset():
     if os.path.exists("storage/history.json"):
         os.remove("storage/history.json")
     config_set_default()
-    
-    
+
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

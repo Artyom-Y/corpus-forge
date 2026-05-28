@@ -51,16 +51,19 @@
 }
 
 #file-list li {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
 
     /* to prevent long ahh file names */
     word-break: break-all;
 
-    padding: 8px;
+    padding: 8px 12px;
     background-color: #EFEFEF;
     border-radius: 6px;
     transition: background-color 0.2s;
+    box-sizing: border-box;
 }
 
 #file-list li:hover {
@@ -71,6 +74,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-top: 25px;
     margin-bottom: 25px;
     padding: 15px;
 
@@ -125,4 +129,36 @@
 
 #upload-form input[type="submit"]:active {
     transform: scale(0.97);        
+}
+
+.file-checkbox {
+    margin-right: 12px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.file-name-text {
+    flex-grow: 1;
+    cursor: pointer;
+    color: #007BFF;
+}
+
+.file-name-text:hover {
+    text-decoration: underline;
+}
+
+.delete-file-btn {
+    background: none;
+    border: none;
+    color: #c9302c;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+.delete-file-btn:hover {
+    background-color: #f2dede;
 }
