@@ -125,7 +125,6 @@ def post_message():
     
     add_to_history(user_prompt, "user")
 
-   
     try:
         ai_text = gemini.generate_response(user_prompt, collections)
         add_to_history(ai_text, "model")
