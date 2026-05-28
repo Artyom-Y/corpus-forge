@@ -14,7 +14,8 @@ from utilities import (
     parse_file,
     add_to_collection,
     list_collection_names,
-    remove_collection
+    remove_collection,
+    init_storage_folders
 )
 from model import AIModel
 
@@ -32,6 +33,7 @@ gemini = AIModel()
 @app.route("/")
 def home():
     create_env_if_not_exists()
+    init_storage_folders()
     return render_template("chat.html")
 
 @app.post("/upload")

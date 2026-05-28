@@ -163,3 +163,11 @@ def add_to_history(text, role, path="storage/history.json"):
 def empty_history():
     open("storage/history.json", "w").close()
     
+
+# misc
+
+def init_storage_folders():
+    folders = ["storage/input", "storage/output", "storage/chroma_db"]
+    for folder in folders:
+        if not os.path.exists(folder):
+            os.makedirs(folder)

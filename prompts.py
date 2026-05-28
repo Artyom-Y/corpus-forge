@@ -38,7 +38,7 @@ Rules:
 - Use only facts supported by the provided context.
 - Do not invent details not present in the source material.
 - Do not add markdown fences, explanations, or extra commentary.
-- Use only HTML with simplistic CSS and Javascript (e.g. for quiz score calculation)
+- Use only HTML with simplistic CSS and Javascript
 - Keep the file self-contained and simple enough to save as a file and open directly in a browser.
 - If the information is limited on a certain subject, keep output about that subject minimal rather than fabricating content.
 
