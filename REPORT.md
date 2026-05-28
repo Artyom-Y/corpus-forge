@@ -40,6 +40,7 @@ Using agents would complicate the development, especially considering our limite
 
 * Document how the project was originally divided among each team member.
 
+-This is was also done in parallel with our other RLA project in which Yuchen had started ahead of time, since he didnt have much work here-
 Artem - backend, Success - frontend, Yuchen - docs and debugging.
 * Document how responsibilities possibly evolved over time.
 
@@ -78,6 +79,7 @@ Document:
 * what failed?
 
 We didn't initally understand that unstructured requires "unstructured local-inference" for PDF parsing to work.
+During initial rag setups we were trying to pass the filename with the extension to chromaDB which led to an error, because chromaDB does not accept .
 * what surprised you?
 
 Gemini takes fairly little time to respond.
