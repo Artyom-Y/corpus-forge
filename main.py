@@ -21,12 +21,7 @@ from model import AIModel
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "storage/input"
-
-# remove on production
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.jinja_env.auto_reload = True
-
 gemini = AIModel()
 
 
@@ -235,4 +230,4 @@ def reset():
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
