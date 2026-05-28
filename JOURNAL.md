@@ -181,3 +181,10 @@
 - **Hook Version**: 1.02
 - **Date**: 28-05-2026 02:10
 - **Prompt**: Based on the code base generate an adeuate readme.md
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 28-05-2026 02:10
+- **Prompt**: Based on the code base generate an adeuate readme.md
+- **Action taken**: Rewrote `README.md` into a complete project guide covering the app overview, feature set, folder structure, setup, run instructions, routes, storage layout, and configuration notes based on the Flask, Gemini, and ChromaDB code paths.
+- **Context and Reasons for Changes**: The previous README was only a short file map. The new version matches the actual implementation in `main.py`, `model.py`, `utilities.py`, and `prompts.py`, so new contributors can understand how the chat, RAG, and generated-tool flows fit together.
