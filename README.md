@@ -53,7 +53,7 @@ It is designed as a simple classroom project: the backend handles file ingestion
 GOOGLE_API_KEY=your_api_key_here
 ```
 
-4. Review `config.toml` if you want to change the default model or enable tools.
+4. `config.toml` is configured in the app via the settings page.
 
 ## Run the App
 
