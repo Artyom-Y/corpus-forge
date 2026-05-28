@@ -140,3 +140,12 @@
     border-color: #ebccd1;
     transform: scale(1.05);       
 }
+
+.visualize-btn {
+    background-color: #007BFF;  
+    margin-top: 5px;            
+}
+
+.visualize-btn:hover:not(:disabled) {
+    background-color: #0056b3; 
+}

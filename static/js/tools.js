@@ -3,6 +3,7 @@ const btnFlashcards = document.getElementById('btn-flashcards');
 const toolStatus = document.getElementById('tool-status');
 const generatedList = document.getElementById('generated-tools-list');
 const generatedHeader = document.getElementById('generated-tools-header');
+const btnVisualize = document.getElementById('btn-visualize');
 
 function addLinkToList(url, filename) {
     generatedHeader.style.display = 'block';
@@ -66,6 +67,52 @@ async function loadToolsOnStartup() {
     }
 }
 
+async function generateVisualization() {
+    const checkedBoxes = document.querySelectorAll('.file-checkbox:checked');
+    const selectedCollections = Array.from(checkedBoxes).map(checkbox => checkbox.value);
+
+    console.log("Files checked:", selectedCollections);
+
+    if (selectedCollections.length === 0) {
+        alert("Please select at least one file to visualize.");
+        return;
+    }
+
+    toolStatus.textContent = "Crafting interactive visualization... Please wait.";
+    btnQuiz.disabled = true;
+    btnFlashcards.disabled = true;
+    btnVisualize.disabled = true;
+
+    try {
+        const response = await fetch('/generate_tool', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({type: 'visualization', collections_names: selectedCollections})
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            toolStatus.textContent = "Success! Launching visualizer...";
+            window.open(`storage/${data.url}`, '_blank');
+
+            const filename = data.url.split('/').pop();
+
+            addLinkToList(`storage/${data.url}`, filename);
+        } else {
+            toolStatus.textContent = "Error: " + data.error;
+        }
+    } catch (error) {
+        console.error("Visualization error:", error);
+        toolStatus.textContent = "A network error occurred.";
+    } finally {
+        btnQuiz.disabled = false;
+        btnFlashcards.disabled = false;
+        btnVisualize.disabled = false;
+        setTimeout(() => { toolStatus.textContent = ""; }, 3000); 
+    }
+}
+
 async function generateTool(type) {
     const checkedBoxes = document.querySelectorAll('.file-checkbox:checked');
     const selectedCollections = Array.from(checkedBoxes).map(checkbox => checkbox.value);
@@ -78,6 +125,7 @@ async function generateTool(type) {
     toolStatus.textContent = `Generating ${type}... Please wait.`;
     btnQuiz.disabled = true;
     btnFlashcards.disabled = true;
+    btnVisualize.disabled = true;
 
     try {
         const response = await fetch('/generate_tool', {
@@ -103,6 +151,7 @@ async function generateTool(type) {
     } finally {
         btnQuiz.disabled = false;
         btnFlashcards.disabled = false;
+        btnVisualize.disabled = false;
         
         setTimeout(() => {toolStatus.textContent = "";}, 3000)
     }
@@ -110,5 +159,6 @@ async function generateTool(type) {
 
 if (btnQuiz) btnQuiz.addEventListener('click', () => generateTool('quiz'));
 if (btnFlashcards) btnFlashcards.addEventListener('click', () => generateTool('flashcards'));
+if (btnVisualize) btnVisualize.addEventListener('click', generateVisualization);
 
 window.addEventListener('DOMContentLoaded', loadToolsOnStartup);

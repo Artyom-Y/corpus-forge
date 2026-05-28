@@ -74,7 +74,7 @@ Output:
 chromadb_queries = {
     "quiz": "Select key facts, terminology and definitions for a quiz.",
     "flashcards": "Select most important information for making studying flashcards.",
-    "vizualization": "Select key data and relationships for building a chart."
+    "visualization": "Select key data and relationships for building a chart."
 }
 
 def form_prompt(content_type, collection_names):
